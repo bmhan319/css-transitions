@@ -1,0 +1,268 @@
+:root {
+  --transitionColor: coral;
+  --border: 1px solid #000;
+}
+
+body {
+  padding: 24px;
+  font-family: Helvetica, sans-serif;
+}
+
+.window {
+  max-width: 300px;
+  margin-bottom: 24px;
+  background: #f8f8f8;
+  padding: 16px; 
+  text-align: center;
+  position: relative;
+  border: var(--border);
+}
+
+.picture {
+  height: 100px;
+  background-color: #ccc;
+  position: relative;
+  border: var(--border);
+}
+
+h2, p {
+  position: relative;
+}
+
+
+/* Fade In */
+.v1 {
+  transition: .25s ease background-color;
+}
+
+.v1:hover {
+  background-color: var(--transitionColor);
+}
+
+
+/* Wipe Down */
+.v2 {
+  position: relative;
+  overflow: hidden;
+}
+
+.v2::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: 0%;
+  left: 0;
+  bottom: 100%;
+  background-color: var(--transitionColor);
+  transition: .25s ease bottom;
+}
+
+.v2:hover::before {
+  bottom: 0%;
+}
+
+/* Wipe Up */
+.v3 {
+  position: relative;
+  overflow: hidden;
+}
+
+.v3 p, .v3 h2, .v3 .picture,
+.v6 p, .v6 h2, .v6 .picture,
+.v7 p, .v7 h2, .v7 .picture {
+  z-index: 10;
+}
+
+.v3::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  bottom: 0%;
+  background-color: var(--transitionColor);
+  transition: .25s ease top;
+}
+
+.v3:hover::after {
+  top: 0%;
+}
+
+
+/* Diagonal TL to BR */
+.v4 {
+  position: relative;
+  overflow: hidden;
+}
+
+.v4::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 0;
+  left: 0;
+  border-top: 0px solid var(--transitionColor);
+  border-right: 0px solid transparent;
+  border-left: 0;
+  border-bottom: 0;
+  transition: border-top .5s ease, border-right .5s ease ; 
+}
+
+.v4:hover::before {
+  border-top: 800px solid var(--transitionColor);
+  border-right: 800px solid transparent;
+}
+
+
+/* Diagonal TR to BL */
+.v5 {
+  position: relative;
+  overflow: hidden;
+}
+
+.v5::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 0;
+  right: 0;
+  border-top: 0px solid var(--transitionColor);
+  border-left: 0px solid transparent;
+  border-right: 0;
+  border-bottom: 0;
+  transition: border-top .5s ease, border-left .5s ease ; 
+}
+
+.v5:hover::before {
+  border-top: 800px solid var(--transitionColor);
+  border-left: 800px solid transparent;
+}
+
+
+/* Diagonal BL to TR */
+.v6 {
+  position: relative;
+  overflow: hidden;
+}
+
+.v6::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: 0px;
+  left: 0px;
+  border-bottom: 0px solid var(--transitionColor);
+  border-right: 0px solid transparent;
+  border-left: 0;
+  border-top: 0;
+  transition: border-bottom .5s ease, border-right .5s ease ; 
+}
+
+.v6:hover::after {
+  border-bottom: 800px solid var(--transitionColor);
+  border-right: 800px solid transparent;
+}
+
+/* Diagonal BR to TL */
+.v7 {
+  position: relative;
+  overflow: hidden;
+}
+
+.v7::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: 0px;
+  right: 0px;
+  border-bottom: 0px solid var(--transitionColor);
+  border-left: 0px solid transparent;
+  border-right: 0;
+  border-top: 0;
+  transition: border-bottom .5s ease, border-left .5s ease ; 
+}
+
+.v7:hover::after {
+  border-bottom: 800px solid var(--transitionColor);
+  border-left: 800px solid transparent;
+}
+
+
+/* Circle */
+.v8 {
+  position: relative;
+  overflow: hidden;
+}
+
+.v8::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  height: 0;
+  width: 0;
+  padding-top: 0%;
+  transform: translate(-50%, -50%);
+  background-color: var(--transitionColor);
+  transition: .5s ease width, .5s ease padding-top;
+}
+
+.v8:hover::before {
+  width: 150%;
+  padding-top: 150%;
+}
+
+
+/* Heart */
+.v9 {
+  position: relative;
+  overflow: hidden;
+}
+
+.v9:hover .heart {
+  transform: translate(-50%, -20%) scale(10);
+}
+
+/* Create Shape Here */
+.heart {
+  position: absolute;
+  width: 100px;
+  height: 90px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -20%) scale(0);
+  transition: transform .75s ease;
+}
+    
+.heart:before,
+.heart:after {
+  position: absolute;
+  content: "";
+  left: 50px;
+  top: 0;
+  width: 50%;
+  height: 90%;
+  background: var(--transitionColor);
+  border-radius: 50px 50px 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
